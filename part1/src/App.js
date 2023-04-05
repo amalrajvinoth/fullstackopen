@@ -6,12 +6,15 @@ const Feedback = ({title, buttons, handlers}) => {
         <div>
             <div><h1>{title}</h1></div>
             {buttons.map((item, index) => {
-                return <Button handleClick={handlers[index]} text={item}/>
+                return <Button key={index} handleClick={handlers[index]} text={item}/>
             })}
         </div>
     )
 }
-const StatisticLine = ({text, value}) => <div>{text} {value}</div>
+const StatisticLine = ({text, value}) => <tr>
+    <td>{text} </td>
+    <td>{value}</td>
+</tr>
 const Statistics = ({title, good, bad, neutral}) => {
     if (good + bad + neutral === 0) {
         return (
@@ -23,12 +26,16 @@ const Statistics = ({title, good, bad, neutral}) => {
         return (
             <div>
                 <div><h1>{title}</h1></div>
-                <StatisticLine text="good" value={good}/>
-                <StatisticLine text="neutral" value={neutral}/>
-                <StatisticLine text="bad" value={bad}/>
-                <StatisticLine text="all" value={good + neutral + bad}/>
-                <StatisticLine text="average" value={(good + neutral + bad) / 3}/>
-                <StatisticLine text="positive" value={(100 * good) / (good + neutral + bad) + "%"}/>
+                <table>
+                    <tbody>
+                    <StatisticLine text="good" value={good}/>
+                    <StatisticLine text="neutral" value={neutral}/>
+                    <StatisticLine text="bad" value={bad}/>
+                    <StatisticLine text="all" value={good + neutral + bad}/>
+                    <StatisticLine text="average" value={(good + neutral + bad) / 3}/>
+                    <StatisticLine text="positive" value={(100 * good) / (good + neutral + bad) + "%"}/>
+                    </tbody>
+                </table>
             </div>
         )
     }
